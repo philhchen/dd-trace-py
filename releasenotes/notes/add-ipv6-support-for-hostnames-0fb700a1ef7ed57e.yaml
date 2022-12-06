@@ -1,4 +1,4 @@
 ---
-fixes:
+features:
   - |
-    This fix resolves an issue where IPv6 agent hostnames could not be parsed.
+    Adds support for IPv6 agent host names.
