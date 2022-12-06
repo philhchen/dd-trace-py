@@ -1,4 +1,5 @@
 import os
+import socket
 from typing import TypeVar
 from typing import Union
 
@@ -6,7 +7,6 @@ from ddtrace.internal.compat import parse
 
 from .http import HTTPConnection
 from .http import HTTPSConnection
-from .ipv6 import is_ipv6_hostname
 from .uds import UDSHTTPConnection
 
 
@@ -21,6 +21,18 @@ DEFAULT_TIMEOUT = 2.0
 ConnectionType = Union[HTTPSConnection, HTTPConnection, UDSHTTPConnection]
 
 T = TypeVar("T")
+
+
+# This method returns if a hostname is an IPv6 address
+def is_ipv6_hostname(hostname):
+    # type: (Union[T, str]) -> bool
+    if not isinstance(hostname, str):
+        return False
+    try:
+        socket.inet_pton(socket.AF_INET6, hostname)
+        return True
+    except socket.error:  # not a valid address
+        return False
 
 
 def get_trace_hostname(default=DEFAULT_HOSTNAME):

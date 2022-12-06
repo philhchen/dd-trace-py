@@ -1,0 +1,4 @@
+---
+fixes:
+  - |
+    This fix resolves an issue where IPv6 agent hostnames could not be parsed.
